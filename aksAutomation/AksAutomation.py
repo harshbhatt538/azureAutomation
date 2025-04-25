@@ -19,8 +19,9 @@ aks_client = ContainerServiceClient(credential, subscription_id)
 for cluster in aks_client.managed_clusters.list():
     
     cluster_name = cluster.name
-    resource_group = 'myAKSResourceGroup'
+    resource_group = cluster.id.split("/")[4]
     print(f"cluster name:{cluster_name}")
+    print(f"resource_group name:{resource_group}")
     # Get AKS cluster info
     cluster = aks_client.managed_clusters.get(resource_group, cluster_name)
     print(f"Cluster Provisioning State: {cluster.provisioning_state}")
@@ -45,7 +46,7 @@ for cluster in aks_client.managed_clusters.list():
     core_v1 = client.CoreV1Api()
 
     # List node statuses
-    print("\n🖥️ Node Statuses:")
+    print("\n Node Statuses:")
     nodes = core_v1.list_node()
     a = 0
     b = 0
@@ -66,7 +67,7 @@ for cluster in aks_client.managed_clusters.list():
     print(f"number of Unknown nodes = {c}") 
 
     # List pod statuses across all namespaces
-    print("\n📦 Pod Statuses:")
+    print("\n Pod Statuses:")
     pods = core_v1.list_pod_for_all_namespaces()
     a=0
     b=0
