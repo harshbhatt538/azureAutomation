@@ -1,0 +1,4 @@
+azure-mgmt-containerservice
+azure-identity
+python-dotenv
+kubernetes
